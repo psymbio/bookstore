@@ -9,17 +9,49 @@ export default function BookAddForm() {
     rentPerDay: "",
   });
 
-  const handleChange = (e: { target: { name: any; value: any; }; }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form data submitted:", formData);
-    // You can add your form submission logic here
+
+    // Prepare the data to be sent to the server
+    const bookData = {
+      name: formData.bookName,
+      category: formData.category,
+      rentPerDay: Number(formData.rentPerDay), // Ensure rentPerDay is a number
+    };
+
+    try {
+      const response = await fetch('http://localhost:3000/books', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(bookData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add book');
+      }
+
+      const result = await response.json();
+      console.log("Book added successfully:", result);
+
+      // Optionally, clear the form after submission
+      setFormData({
+        bookName: "",
+        category: "",
+        rentPerDay: "",
+      });
+    } catch (error) {
+      console.error('Error adding book:', error);
+    }
   };
 
   return (
