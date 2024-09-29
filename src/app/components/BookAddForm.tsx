@@ -51,16 +51,28 @@ export default function BookAddForm() {
               <label htmlFor="category" className="sr-only">
                 Category
               </label>
-              <input
+              <select
                 className="w-full rounded-lg border-gray-200 p-3 text-sm"
-                placeholder="Category"
-                type="text"
                 id="category"
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
                 required
-              />
+              >
+                <option value="" disabled>Select Category</option>
+                <option value="Fiction">Fiction</option>
+                <option value="Dystopian">Dystopian</option>
+                <option value="Classic">Classic</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Science Fiction">Science Fiction</option>
+                <option value="Romance">Romance</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="Philosophy">Philosophy</option>
+                <option value="Historical">Historical</option>
+                <option value="Philosophical">Philosophical</option>
+                <option value="Epic">Epic</option>
+                <option value="Horror">Horror</option>
+              </select>
             </div>
 
             {/* Rent Per Day */}
