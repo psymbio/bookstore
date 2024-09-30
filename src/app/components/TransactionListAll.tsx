@@ -20,7 +20,7 @@ const TransactionListAll = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [returnError, setReturnError] = useState('');
+  const [returnError] = useState('');
 
   useEffect(() => {
     const fetchTransactions = async () => {
