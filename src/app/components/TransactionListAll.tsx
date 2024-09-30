@@ -3,8 +3,19 @@
 import React, { useEffect, useState } from 'react';
 import { API_PATHS } from '../api/config';
 
+// Define an interface for the transaction object
+interface Transaction {
+  _id: string;
+  bookId: string;
+  userId: string;
+  issueDate: string; // You can change this to Date if you prefer
+  returnDate?: string; // Optional, can be undefined
+  totalRent?: number;  // Optional, can be undefined
+  status: string;
+}
+
 const TransactionListAll = () => {
-  const [transactions, setTransactions] = useState<any[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 

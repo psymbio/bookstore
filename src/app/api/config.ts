@@ -13,6 +13,7 @@ const API_PATHS = {
   USERS: `${BASE_API_URL}/users`,
   TRANSACTIONS: `${BASE_API_URL}/transactions`,
   TRANSACTION_ISSUE: `${BASE_API_URL}/transactions/issue`,
+  TRANSACTION_RETURN: `${BASE_API_URL}/transactions/return`,
 };
 
 export { BASE_API_URL, API_PATHS };
