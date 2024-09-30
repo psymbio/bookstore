@@ -2,6 +2,7 @@ import TransactionHistory from "../components/TransactionHistory";
 import TransactionIssue from "../components/TransactionIssue";
 import TransactionListAll from "../components/TransactionListAll";
 import TransactionRent from "../components/TransactionRent";
+import TransactionUser from "../components/TransactionUser";
 
 export default function Transactions() {
     return (
@@ -10,6 +11,7 @@ export default function Transactions() {
             <TransactionIssue />
             <TransactionHistory />
             <TransactionRent />
+            <TransactionUser />
         </div>
     );
 }
