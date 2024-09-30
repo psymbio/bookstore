@@ -15,6 +15,9 @@ const API_PATHS = {
   TRANSACTION_ISSUE: `${BASE_API_URL}/transactions/issue`,
   TRANSACTION_RETURN: `${BASE_API_URL}/transactions/return`,
   TRANSACTION_BOOK_STATUS: `${BASE_API_URL}/transactions/book-status`,
+  TRANSACTION_BOOK_RENT: `${BASE_API_URL}/transactions/book-rent`,
+  TRANSACTION_USER_BOOKS: `${BASE_API_URL}/transactions/user-books`,
+  TRANSACTION_DATE_RANGE: `${BASE_API_URL}/transactions/date-range`, 
 };
 
 export { BASE_API_URL, API_PATHS };
