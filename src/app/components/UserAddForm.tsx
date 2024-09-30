@@ -1,11 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
+import { API_PATHS } from "../api/config";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 export default function UserAddForm() {
   const [formData, setFormData] = useState({
     userName: "",
   });
+  const [popupOpen, setPopupOpen] = useState(false); // State to manage popup visibility
+  const [userDetails, setUserDetails] = useState({}); // State to store added user details
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -24,28 +28,37 @@ export default function UserAddForm() {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/users', {
-        method: 'POST',
+      const response = await fetch(API_PATHS.USERS, {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(userData),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to add user');
+        throw new Error("Failed to add user");
       }
 
       const result = await response.json();
       console.log("User added successfully:", result);
+
+      // Show the popup with user details
+      setUserDetails(result);
+      setPopupOpen(true);
 
       // Optionally, clear the form after submission
       setFormData({
         userName: "",
       });
     } catch (error) {
-      console.error('Error adding user:', error);
+      console.error("Error adding user:", error);
     }
+  };
+
+  // Function to close the popup
+  const closePopup = () => {
+    setPopupOpen(false);
   };
 
   return (
@@ -84,6 +97,21 @@ export default function UserAddForm() {
           </form>
         </div>
       </div>
+
+      {/* Popup/Modal */}
+      {popupOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 relative max-w-md w-full">
+            <button
+              onClick={closePopup}
+              className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+            >
+              <CloseRoundedIcon />
+            </button>
+            <h3 className="text-xl font-semibold mb-4">User Added Successfully</h3>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

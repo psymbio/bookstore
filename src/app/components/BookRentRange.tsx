@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Book } from '../models/Book'; // Adjust the path if necessary
+import { API_PATHS } from "../api/config";
 
 const BookRentRange = () => {
   const [minRent, setMinRent] = useState("");
@@ -17,7 +18,7 @@ const BookRentRange = () => {
     setSearchResults([]);
 
     try {
-      const response = await fetch(`http://localhost:3000/books/rent-range?minRent=${encodeURIComponent(minRent)}&maxRent=${encodeURIComponent(maxRent)}`);
+      const response = await fetch(API_PATHS.BOOKS_RENT_RANGE(minRent, maxRent));
       if (!response.ok) {
         throw new Error('Failed to fetch search results');
       }

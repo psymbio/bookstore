@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { Book } from '../models/Book'; // Adjust the path if necessary
+import { API_PATHS } from "../api/config";
 
 const BookSearch = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,7 +17,7 @@ const BookSearch = () => {
     setSearchResults([]);
 
     try {
-      const response = await fetch(`http://localhost:3000/books/search?name=${encodeURIComponent(searchTerm)}`);
+      const response = await fetch(API_PATHS.BOOKS_SEARCH(searchTerm));
       if (!response.ok) {
         throw new Error('Failed to fetch search results');
       }

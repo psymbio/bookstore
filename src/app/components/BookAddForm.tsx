@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import { API_PATHS } from "../api/config";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 export default function BookAddForm() {
   const [formData, setFormData] = useState({
@@ -8,6 +10,13 @@ export default function BookAddForm() {
     category: "",
     rentPerDay: "",
   });
+
+  const [popupOpen, setPopupOpen] = useState(false); // State to manage popup visibility
+  const [bookDetails, setBookDetails] = useState({
+    name: "",
+    category: "",
+    rentPerDay: 0,
+  }); // State to store added book details
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
@@ -28,20 +37,25 @@ export default function BookAddForm() {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/books', {
-        method: 'POST',
+      const response = await fetch(API_PATHS.BOOKS, {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(bookData),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to add book');
+        setPopupOpen(true);
+        throw new Error("Failed to add book");
       }
 
       const result = await response.json();
       console.log("Book added successfully:", result);
+
+      // Show the popup with book details
+      setBookDetails(result);
+      setPopupOpen(true);
 
       // Optionally, clear the form after submission
       setFormData({
@@ -50,8 +64,13 @@ export default function BookAddForm() {
         rentPerDay: "",
       });
     } catch (error) {
-      console.error('Error adding book:', error);
+      console.error("Error adding book:", error);
     }
+  };
+
+  // Function to close the popup
+  const closePopup = () => {
+    setPopupOpen(false);
   };
 
   return (
@@ -136,6 +155,21 @@ export default function BookAddForm() {
           </form>
         </div>
       </div>
+
+      {/* Popup/Modal */}
+      {popupOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 relative max-w-md w-full">
+            <button
+              onClick={closePopup}
+              className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+            >
+              <CloseRoundedIcon />
+            </button>
+            <h3 className="text-xl font-semibold mb-4">Book Added Successfully</h3>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

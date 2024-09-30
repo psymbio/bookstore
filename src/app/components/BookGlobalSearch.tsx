@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Book } from '../models/Book'; // Adjust the path if necessary
+import { Book } from '../models/Book';
+import { API_PATHS } from "../api/config";
 
 const BookGlobalSearch = () => {
   const [category, setCategory] = useState("");
@@ -20,7 +21,7 @@ const BookGlobalSearch = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/books/search?category=${encodeURIComponent(category)}&name=${encodeURIComponent(name)}&minRent=${encodeURIComponent(minRent)}&maxRent=${encodeURIComponent(maxRent)}`
+        API_PATHS.BOOKS_GLOBAL_SEARCH(category, name, minRent, maxRent)
       );
 
       if (!response.ok) {
@@ -39,7 +40,7 @@ const BookGlobalSearch = () => {
   return (
     <section className="bg-gray-100">
       <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Global Search Books</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">Global Book Search</h2>
 
         <form onSubmit={handleSearch} className="space-y-4 mb-6">
           {/* Category Selection */}
