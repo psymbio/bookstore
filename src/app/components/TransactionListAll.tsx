@@ -42,35 +42,29 @@ const TransactionListAll = () => {
   }, []);
 
   // Function to handle book return
-  const handleReturnBook = async (transaction: Transaction) => {
-    const returnDate = new Date().toISOString(); // Get the current date for return
-
+  const handleReturn = async (transactionId: string) => {
+    const returnDate = new Date().toISOString(); // Set returnDate to now for this example
     try {
-      const response = await fetch(API_PATHS.TRANSACTIONS_RETURN, {
+      const response = await fetch(API_PATHS.TRANSACTION_RETURN, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          bookName: transaction.bookName,
-          userId: transaction.userId,
-          returnDate: returnDate,
-        }),
+        body: JSON.stringify({ transactionId, returnDate }),
       });
 
+      const data = await response.json();
       if (!response.ok) {
-        throw new Error('Failed to return the book');
+        throw new Error(data.message || 'Failed to return the book');
       }
 
-      const result = await response.json();
-      alert(result.message); // Alert the success message
-      setReturnError(''); // Clear previous errors
-      // Optionally: refetch transactions to reflect the updated data
-      await fetchTransactions();
+      alert(data.message); // Alert for success
+      // Optionally: Refresh the transactions list or handle UI changes here
     } catch (error) {
-      setReturnError((error as Error).message);
+      alert((error as Error).message); // Alert error
     }
   };
+
 
   return (
     <section className="bg-gray-100">
@@ -115,7 +109,7 @@ const TransactionListAll = () => {
                     <td className="px-4 py-2 border-b">
                       {transaction.status === 'issued' && (
                         <button 
-                          onClick={() => handleReturnBook(transaction)} 
+                          onClick={() => handleReturn(transaction._id)} 
                           className="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded"
                         >
                           Return
