@@ -99,7 +99,7 @@ const TransactionListAll = () => {
             <table className="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
               <thead>
                 <tr className="bg-gray-200 text-gray-700">
-                  <th className="px-4 py-2 border-b">Transaction ID</th>
+                  {/* <th className="px-4 py-2 border-b">Transaction ID</th> */}
                   <th className="px-4 py-2 border-b">Book Name</th>
                   <th className="px-4 py-2 border-b">Username</th>
                   <th className="px-4 py-2 border-b">Issue Date</th>
@@ -112,7 +112,7 @@ const TransactionListAll = () => {
               <tbody>
                 {transactions.map(transaction => (
                   <tr key={transaction._id} className="text-gray-600">
-                    <td className="px-4 py-2 border-b">{transaction._id}</td>
+                    {/* <td className="px-4 py-2 border-b">{transaction._id}</td> */}
                     <td className="px-4 py-2 border-b">{transaction.bookName}</td>
                     <td className="px-4 py-2 border-b">{transaction.username}</td>
                     <td className="px-4 py-2 border-b">{new Date(transaction.issueDate).toLocaleDateString()}</td>
