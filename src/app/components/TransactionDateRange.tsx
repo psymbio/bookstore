@@ -36,8 +36,12 @@ const TransactionDateRange = () => {
       }
       const data: { issuedBooks: IssuedBook[] } = await response.json(); // Type the response data
       setIssuedBooks(data.issuedBooks);
-    } catch (err: any) {
-      setError(err.message || "An error occurred while fetching data.");
+    } catch (err: unknown) {  // Use 'unknown' instead of 'any'
+      if (err instanceof Error) {
+        setError(err.message || "An error occurred while fetching data.");
+      } else {
+        setError("An unexpected error occurred.");
+      }
     }
   };
 

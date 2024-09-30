@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState } from 'react';
-import { API_PATHS } from '../api/config'; // Adjust the path to your config file
+import React, { useState } from "react";
+import { API_PATHS } from "../api/config"; // Adjust the path to your config file
 
 const TransactionRent = () => {
-  const [bookName, setBookName] = useState('');
+  const [bookName, setBookName] = useState("");
   const [totalRent, setTotalRent] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -16,15 +16,21 @@ const TransactionRent = () => {
     setTotalRent(null);
 
     try {
-      const response = await fetch(`${API_PATHS.TRANSACTIONS}/rent/${encodeURIComponent(bookName)}`);
+      const response = await fetch(
+        `${API_PATHS.TRANSACTIONS}/rent/${encodeURIComponent(bookName)}`
+      );
       if (!response.ok) {
-        throw new Error('Book not found or an error occurred');
+        throw new Error("Book not found or an error occurred");
       }
 
       const data = await response.json();
       setTotalRent(data.totalRent);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unexpected error occurred.");
+      }
     } finally {
       setLoading(false);
     }
@@ -59,7 +65,7 @@ const TransactionRent = () => {
 
       {totalRent !== null && (
         <div className="mt-4 p-4 bg-green-100 border border-green-400 rounded">
-          <h3 className="font-bold">Total Rent for "{bookName}":</h3>
+          <h3 className="font-bold">Total Rent for &quot;{bookName}&quot;:</h3>
           <p>${totalRent}</p>
         </div>
       )}

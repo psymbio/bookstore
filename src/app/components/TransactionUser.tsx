@@ -22,11 +22,11 @@ type UserTransactions = {
 const TransactionUser = () => {
   const [userIdOrName, setUserIdOrName] = useState(''); // User ID or Name input
   const [userTransactions, setUserTransactions] = useState<UserTransactions | null>(null); // Stores transaction results
-  const [error, setError] = useState(''); // Error handling
+  const [error, setError] = useState<string | null>(null); // Error handling
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(''); // Clear previous errors
+    setError(null); // Clear previous errors
 
     try {
       const response = await fetch(`${API_PATHS.TRANSACTIONS}/user/${encodeURIComponent(userIdOrName)}`);
@@ -35,8 +35,12 @@ const TransactionUser = () => {
       }
       const data: UserTransactions = await response.json(); // Define the expected response type
       setUserTransactions(data); // Store the retrieved transaction details
-    } catch (err: any) {
-      setError(err.message || 'An error occurred');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message); // Handle known errors
+      } else {
+        setError('An unexpected error occurred.'); // Handle unexpected errors
+      }
       setUserTransactions(null); // Reset transactions if error occurs
     }
   };
