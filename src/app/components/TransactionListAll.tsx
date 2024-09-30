@@ -6,11 +6,13 @@ import { API_PATHS } from '../api/config';
 // Define an interface for the transaction object
 interface Transaction {
   _id: string;
-  bookId: string;
-  userId: string;
-  issueDate: string; // You can change this to Date if you prefer
-  returnDate?: string; // Optional, can be undefined
-  totalRent?: number;  // Optional, can be undefined
+  bookId: string;         // Keep for reference, but will display bookName instead
+  userId: string;         // Keep for reference, but will display username instead
+  bookName: string;       // New field for book name
+  username: string;       // New field for username
+  issueDate: string;      // You can change this to Date if you prefer
+  returnDate?: string;    // Optional, can be undefined
+  totalRent?: number;     // Optional, can be undefined
   status: string;
 }
 
@@ -68,8 +70,8 @@ const TransactionListAll = () => {
                 {transactions.map(transaction => (
                   <tr key={transaction._id} className="text-gray-600">
                     <td className="px-4 py-2 border-b">{transaction._id}</td>
-                    <td className="px-4 py-2 border-b">{transaction.bookId}</td>
-                    <td className="px-4 py-2 border-b">{transaction.userId}</td>
+                    <td className="px-4 py-2 border-b">{transaction.bookName}</td> {/* Show bookName */}
+                    <td className="px-4 py-2 border-b">{transaction.username}</td> {/* Show username */}
                     <td className="px-4 py-2 border-b">{new Date(transaction.issueDate).toLocaleDateString()}</td>
                     <td className="px-4 py-2 border-b">
                       {transaction.returnDate ? new Date(transaction.returnDate).toLocaleDateString() : 'N/A'}
