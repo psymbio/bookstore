@@ -1,6 +1,6 @@
 // Base API URL
 // const BASE_API_URL = 'http://localhost:3000';
-const BASE_API_URL = 'https://d33808feac25f850c4d9d851fed7c222.serveo.net';
+const BASE_API_URL = 'https://4a5eccae5544fdcaa74ea02d61166768.serveo.net';
 // API Endpoints
 const API_PATHS = {
   BOOKS: `${BASE_API_URL}/books`,
@@ -14,6 +14,7 @@ const API_PATHS = {
   TRANSACTIONS: `${BASE_API_URL}/transactions`,
   TRANSACTION_ISSUE: `${BASE_API_URL}/transactions/issue`,
   TRANSACTION_RETURN: `${BASE_API_URL}/transactions/return`,
+  TRANSACTION_BOOK_STATUS: `${BASE_API_URL}/transactions/book-status`,
 };
 
 export { BASE_API_URL, API_PATHS };
