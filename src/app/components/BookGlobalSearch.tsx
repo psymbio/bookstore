@@ -30,7 +30,7 @@ const BookGlobalSearch = () => {
       const data: Book[] = await response.json();
       setSearchResults(data);
     } catch (err) {
-      setError(err.message);
+      setError((err as Error).message);
     } finally {
       setLoading(false);
     }

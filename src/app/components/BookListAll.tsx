@@ -19,7 +19,7 @@ const BookListAll = () => {
         setBooks(data);
         setLoading(false);
       } catch (err) {
-        setError(err.message);
+        setError((err as Error).message);
         setLoading(false);
       }
     };

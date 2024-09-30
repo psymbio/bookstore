@@ -1,4 +1,5 @@
 // models/User.ts
-export interface Book {
+export interface User {
+    _id: string;
     name: string;
 }
