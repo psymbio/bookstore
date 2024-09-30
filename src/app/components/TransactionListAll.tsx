@@ -22,22 +22,25 @@ const TransactionListAll = () => {
   const [error, setError] = useState('');
   const [returnError] = useState('');
 
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const response = await fetch(API_PATHS.TRANSACTIONS);
-        if (!response.ok) {
-          throw new Error('Failed to fetch transactions');
-        }
-        const data = await response.json();
-        setTransactions(data);
-      } catch (error) {
-        setError((error as Error).message);
-      } finally {
-        setLoading(false);
+  // Function to fetch transactions
+  const fetchTransactions = async () => {
+    setLoading(true); // Start loading
+    try {
+      const response = await fetch(API_PATHS.TRANSACTIONS);
+      if (!response.ok) {
+        throw new Error('Failed to fetch transactions');
       }
-    };
+      const data = await response.json();
+      setTransactions(data);
+    } catch (error) {
+      setError((error as Error).message);
+    } finally {
+      setLoading(false); // End loading
+    }
+  };
 
+  // Use useEffect to fetch transactions on component mount
+  useEffect(() => {
     fetchTransactions();
   }, []);
 
@@ -59,17 +62,29 @@ const TransactionListAll = () => {
       }
 
       alert(data.message); // Alert for success
-      // Optionally: Refresh the transactions list or handle UI changes here
+      fetchTransactions(); // Reload transactions after returning a book
     } catch (error) {
       alert((error as Error).message); // Alert error
     }
   };
 
+  // Function to handle reload button click
+  const handleReload = () => {
+    fetchTransactions(); // Call fetchTransactions to reload data
+  };
 
   return (
     <section className="bg-gray-100">
       <div className="mx-auto max-w-screen-md px-4 py-16 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">All Transactions</h2>
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-900">All Transactions</h2>
+          <button 
+            onClick={handleReload} 
+            className="text-white bg-green-500 hover:bg-green-700 px-4 py-2 rounded"
+          >
+            Reload
+          </button>
+        </div>
 
         {loading && <p className="text-gray-500">Loading transactions...</p>}
         {error && <p className="mt-4 text-red-600">Error: {error}</p>}
