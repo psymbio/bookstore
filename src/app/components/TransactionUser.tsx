@@ -3,12 +3,28 @@
 import React, { useState } from 'react';
 import { API_PATHS } from '../api/config'; // Adjust the path according to your project structure
 
+// Define the type for the issued books
+type IssuedBook = {
+  bookName: string;
+  issueDate: string;
+  returnDate: string | null;
+  status: string;
+};
+
+// Define the type for the user transaction response
+type UserTransactions = {
+  user: {
+    username: string;
+  };
+  issuedBooks: IssuedBook[];
+};
+
 const TransactionUser = () => {
   const [userIdOrName, setUserIdOrName] = useState(''); // User ID or Name input
-  const [userTransactions, setUserTransactions] = useState(null); // Stores transaction results
+  const [userTransactions, setUserTransactions] = useState<UserTransactions | null>(null); // Stores transaction results
   const [error, setError] = useState(''); // Error handling
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(''); // Clear previous errors
 
@@ -17,10 +33,10 @@ const TransactionUser = () => {
       if (!response.ok) {
         throw new Error('User not found or an error occurred');
       }
-      const data = await response.json();
+      const data: UserTransactions = await response.json(); // Define the expected response type
       setUserTransactions(data); // Store the retrieved transaction details
-    } catch (err) {
-      setError(err.message);
+    } catch (err: any) {
+      setError(err.message || 'An error occurred');
       setUserTransactions(null); // Reset transactions if error occurs
     }
   };

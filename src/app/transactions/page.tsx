@@ -1,3 +1,4 @@
+import TransactionDateRange from "../components/TransactionDateRange";
 import TransactionHistory from "../components/TransactionHistory";
 import TransactionIssue from "../components/TransactionIssue";
 import TransactionListAll from "../components/TransactionListAll";
@@ -12,6 +13,7 @@ export default function Transactions() {
             <TransactionHistory />
             <TransactionRent />
             <TransactionUser />
+            <TransactionDateRange />
         </div>
     );
 }
