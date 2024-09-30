@@ -11,6 +11,7 @@ const API_PATHS = {
   BOOKS_RENT_RANGE: (minRent: string, maxRent: string) =>
     `${BASE_API_URL}/books/rent-range?minRent=${encodeURIComponent(minRent)}&maxRent=${encodeURIComponent(maxRent)}`,
   USERS: `${BASE_API_URL}/users`,
+  TRANSACTIONS: `${BASE_API_URL}/transactions`,
   TRANSACTION_ISSUE: `${BASE_API_URL}/transactions/issue`,
 };
 
