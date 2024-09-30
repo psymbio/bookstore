@@ -12,11 +12,6 @@ export default function BookAddForm() {
   });
 
   const [popupOpen, setPopupOpen] = useState(false); // State to manage popup visibility
-  const [bookDetails, setBookDetails] = useState({
-    name: "",
-    category: "",
-    rentPerDay: 0,
-  }); // State to store added book details
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
@@ -53,8 +48,7 @@ export default function BookAddForm() {
       const result = await response.json();
       console.log("Book added successfully:", result);
 
-      // Show the popup with book details
-      setBookDetails(result);
+      // Show the popup
       setPopupOpen(true);
 
       // Optionally, clear the form after submission

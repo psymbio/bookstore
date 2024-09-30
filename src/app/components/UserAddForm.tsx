@@ -8,8 +8,8 @@ export default function UserAddForm() {
   const [formData, setFormData] = useState({
     userName: "",
   });
+
   const [popupOpen, setPopupOpen] = useState(false); // State to manage popup visibility
-  const [userDetails, setUserDetails] = useState({}); // State to store added user details
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -43,8 +43,7 @@ export default function UserAddForm() {
       const result = await response.json();
       console.log("User added successfully:", result);
 
-      // Show the popup with user details
-      setUserDetails(result);
+      // Show the popup
       setPopupOpen(true);
 
       // Optionally, clear the form after submission
