@@ -80,7 +80,7 @@ const TransactionListAll = () => {
           <h2 className="text-2xl font-bold text-gray-900">All Transactions</h2>
           <button 
             onClick={handleReload} 
-            className="text-white bg-green-500 hover:bg-green-700 px-4 py-2 rounded"
+            className="text-white bg-green-500 hover:bg-teal-600 px-4 py-2 rounded"
           >
             Reload
           </button>
@@ -125,7 +125,7 @@ const TransactionListAll = () => {
                       {transaction.status === 'issued' && (
                         <button 
                           onClick={() => handleReturn(transaction._id)} 
-                          className="text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded"
+                          className="text-white bg-teal-600 hover:bg-teal-700 px-4 py-2 rounded"
                         >
                           Return
                         </button>

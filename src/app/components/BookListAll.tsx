@@ -54,7 +54,7 @@ const BookListAll = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
+    <div className="max-w-6xl mx-auto p-6 bg-gray-100">
       <h1 className="text-3xl font-bold mb-6">List of Books</h1>
 
       {/* Reload button */}
