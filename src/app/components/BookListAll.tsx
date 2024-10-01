@@ -66,7 +66,7 @@ const BookListAll = () => {
       </button>
 
       {/* Adjust the grid to show 4 books per row on large screens */}
-      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-white">
         {books.map((book) => (
           <li key={book.name} className="p-4 border rounded-lg shadow-md">
             <h2 className="text-xl font-semibold">{book.name}</h2>
