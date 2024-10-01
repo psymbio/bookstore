@@ -8,7 +8,7 @@ const HomeInfo = () => {
           {/* Main Heading */}
           <h1 className="text-3xl font-extrabold sm:text-5xl">
             Explore Your Library.
-            <strong className="block font-extrabold text-red-700 sm:inline">
+            <strong className="block font-extrabold text-teal-700 sm:inline">
               Discover Books, Users, and Transactions.
             </strong>
           </h1>
@@ -22,21 +22,21 @@ const HomeInfo = () => {
           {/* Call to Action Buttons */}
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <a
-              className="block w-full rounded bg-red-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-red-500 active:bg-red-500 sm:w-auto"
+              className="block w-full rounded bg-teal-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-teal-700 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-teal-500 active:bg-teal-500 sm:w-auto"
               href="/books"
             >
               Visit Books
             </a>
 
             <a
-              className="block w-full rounded bg-red-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-red-500 active:bg-red-500 sm:w-auto"
+              className="block w-full rounded bg-teal-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-teal-700 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-teal-500 active:bg-teal-500 sm:w-auto"
               href="/users"
             >
               Visit Users
             </a>
 
             <a
-              className="block w-full rounded bg-red-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-red-500 active:bg-red-500 sm:w-auto"
+              className="block w-full rounded bg-teal-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-teal-700 focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-teal-500 active:bg-teal-500 sm:w-auto"
               href="/transactions"
             >
               Visit Transactions
