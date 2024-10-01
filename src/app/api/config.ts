@@ -1,6 +1,6 @@
 // Base API URL
 // const BASE_API_URL = 'http://localhost:3000';
-const BASE_API_URL = 'https://bookstorebackend.loca.lt';
+const BASE_API_URL = 'https://bookstorebackendmongo.loca.lt';
 // API Endpoints
 const API_PATHS = {
   BOOKS: `${BASE_API_URL}/books`,
