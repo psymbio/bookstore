@@ -53,7 +53,7 @@ const TransactionHistory = () => {
   };
 
   return (
-    <div className="bg-gray-100">
+    <div className="mx-auto px-4 py-10 sm:px-6 lg:px-8 bg-gray-100">
       <h1 className="text-3xl font-bold mb-6 text-gray-900">Transaction History</h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 mb-6">

@@ -36,7 +36,7 @@ const TransactionDateRange = () => {
       }
       const data: { issuedBooks: IssuedBook[] } = await response.json(); // Type the response data
       setIssuedBooks(data.issuedBooks);
-    } catch (err: unknown) {  // Use 'unknown' instead of 'any'
+    } catch (err: unknown) { // Use 'unknown' instead of 'any'
       if (err instanceof Error) {
         setError(err.message || "An error occurred while fetching data.");
       } else {
@@ -46,40 +46,42 @@ const TransactionDateRange = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Transaction History by Date Range</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="flex flex-col">
-          <label htmlFor="startDate" className="font-semibold">
-            Start Date:
-          </label>
-          <input
-            type="date"
-            id="startDate"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            className="p-2 border border-gray-300 rounded"
-            required
-          />
-        </div>
+    <div className="max-w-3xl mx-auto p-6 bg-gray-100 rounded-lg shadow-md">
+      <h1 className="text-3xl font-bold mb-6">Transaction History by Date Range</h1>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="flex flex-col">
+            <label htmlFor="startDate" className="font-medium text-gray-700">
+              Start Date:
+            </label>
+            <input
+              type="date"
+              id="startDate"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className="mt-1 p-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-teal-500"
+              required
+            />
+          </div>
 
-        <div className="flex flex-col">
-          <label htmlFor="endDate" className="font-semibold">
-            End Date:
-          </label>
-          <input
-            type="date"
-            id="endDate"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            className="p-2 border border-gray-300 rounded"
-            required
-          />
+          <div className="flex flex-col">
+            <label htmlFor="endDate" className="font-medium text-gray-700">
+              End Date:
+            </label>
+            <input
+              type="date"
+              id="endDate"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              className="mt-1 p-2 rounded-md border border-gray-300 focus:ring-2 focus:ring-teal-500"
+              required
+            />
+          </div>
         </div>
 
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="w-full py-3 bg-teal-600 text-white font-semibold rounded-lg hover:bg-teal-700 transition"
         >
           Search
         </button>
@@ -88,15 +90,17 @@ const TransactionDateRange = () => {
       {error && <p className="text-red-500 mt-4">{error}</p>}
 
       {issuedBooks.length > 0 && (
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold">Issued Books</h2>
-          <ul className="list-disc pl-6">
+        <div className="mt-8">
+          <h2 className="text-xl font-semibold text-teal-600 mb-4">Issued Books</h2>
+          <ul className="space-y-4">
             {issuedBooks.map((book, index) => (
-              <li key={index} className="my-2">
-                <p className="font-semibold">Book: {book.bookName}</p>
-                <p>User: {book.username}</p>
-                <p>Issue Date: {new Date(book.issueDate).toLocaleDateString()}</p>
-                <p>Status: {book.status}</p>
+              <li key={index} className="p-4 border-l-4 border-teal-500 bg-gray-50 rounded-md shadow-sm">
+                <p className="text-lg font-bold text-teal-700">Book: {book.bookName}</p>
+                <p className="text-gray-600">User: {book.username}</p>
+                <p className="text-gray-600">
+                  Issue Date: {new Date(book.issueDate).toLocaleDateString()}
+                </p>
+                <p className="text-gray-600">Status: {book.status}</p>
               </li>
             ))}
           </ul>
@@ -104,7 +108,7 @@ const TransactionDateRange = () => {
       )}
 
       {issuedBooks.length === 0 && !error && (
-        <p className="mt-6 text-gray-500">No books issued in this date range.</p>
+        <p className="mt-6 text-gray-500 text-center">No books issued in this date range.</p>
       )}
     </div>
   );

@@ -23,69 +23,80 @@ const TransactionUser = () => {
   const [userIdOrName, setUserIdOrName] = useState(''); // User ID or Name input
   const [userTransactions, setUserTransactions] = useState<UserTransactions | null>(null); // Stores transaction results
   const [error, setError] = useState<string | null>(null); // Error handling
+  const [loading, setLoading] = useState<boolean>(false); // Loading state
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null); // Clear previous errors
+    setError(null);
+    setLoading(true);
 
     try {
       const response = await fetch(`${API_PATHS.TRANSACTIONS}/user/${encodeURIComponent(userIdOrName)}`);
       if (!response.ok) {
         throw new Error('User not found or an error occurred');
       }
-      const data: UserTransactions = await response.json(); // Define the expected response type
-      setUserTransactions(data); // Store the retrieved transaction details
+      const data: UserTransactions = await response.json();
+      setUserTransactions(data);
     } catch (err: unknown) {
       if (err instanceof Error) {
-        setError(err.message); // Handle known errors
+        setError(err.message);
       } else {
-        setError('An unexpected error occurred.'); // Handle unexpected errors
+        setError('An unexpected error occurred.');
       }
-      setUserTransactions(null); // Reset transactions if error occurs
+      setUserTransactions(null);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Books Issued to User</h1>
+    <div className="mx-auto px-4 py-10 sm:px-6 lg:px-8 bg-gray-100">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">Books Issued to User</h1>
 
-      {/* Form to input user name or user ID */}
-      <form onSubmit={handleSubmit} className="mb-6">
-        <div className="flex items-center space-x-2">
-          <input
-            type="text"
-            value={userIdOrName}
-            onChange={(e) => setUserIdOrName(e.target.value)}
-            placeholder="Enter user name or user ID"
-            className="flex-grow p-2 border border-gray-300 rounded"
-            required
-          />
-          <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-            Search
-          </button>
-        </div>
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 mb-6">
+        <input
+          type="text"
+          value={userIdOrName}
+          onChange={(e) => setUserIdOrName(e.target.value)}
+          placeholder="Enter user name or user ID"
+          className="flex-grow p-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-teal-500"
+          required
+        />
+        <button
+          type="submit"
+          className="px-6 py-3 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition"
+        >
+          Search
+        </button>
       </form>
 
-      {/* Error Handling */}
-      {error && <p className="text-red-500">{error}</p>}
+      {loading && <p className="text-center text-teal-600">Loading...</p>}
 
-      {/* Transaction History Display */}
+      {error && <p className="text-center text-red-500 font-medium">{error}</p>}
+
       {userTransactions && (
-        <div className="mt-4">
-          <h2 className="text-xl font-semibold">User: {userTransactions.user.username}</h2>
-          <h3 className="mt-2">Issued Books:</h3>
+        <div className="mt-6 bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-xl font-semibold text-teal-700">User: {userTransactions.user.username}</h2>
 
-          {/* Check if any books have been issued */}
           {userTransactions.issuedBooks.length === 0 ? (
-            <p>No books have been issued to this user.</p>
+            <p className="mt-4 text-gray-600">No books have been issued to this user.</p>
           ) : (
-            <ul className="list-disc pl-6">
+            <ul className="mt-4 space-y-4">
               {userTransactions.issuedBooks.map((book, index) => (
-                <li key={index} className="my-2">
-                  <p><strong>Book Name:</strong> {book.bookName}</p>
-                  <p><strong>Issue Date:</strong> {new Date(book.issueDate).toLocaleDateString()}</p>
-                  <p><strong>Return Date:</strong> {book.returnDate ? new Date(book.returnDate).toLocaleDateString() : 'Not returned yet'}</p>
-                  <p><strong>Status:</strong> {book.status}</p>
+                <li
+                  key={index}
+                  className="border-l-4 border-teal-500 p-4 bg-gray-50 rounded-lg shadow-sm"
+                >
+                  <p className="text-lg font-semibold text-teal-700">Book Name: {book.bookName}</p>
+                  <p className="text-sm text-gray-600 mt-2">
+                    <strong>Issue Date:</strong> {new Date(book.issueDate).toLocaleDateString()}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    <strong>Return Date:</strong> {book.returnDate ? new Date(book.returnDate).toLocaleDateString() : 'Not returned yet'}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    <strong>Status:</strong> {book.status}
+                  </p>
                 </li>
               ))}
             </ul>
