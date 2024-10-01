@@ -1,6 +1,6 @@
 // Base API URL
 // const BASE_API_URL = 'http://localhost:3000';
-const BASE_API_URL = 'https://9dfe5226f79dc3.lhr.life';
+const BASE_API_URL = 'https://bookstorebackend.serveo.net';
 // API Endpoints
 const API_PATHS = {
   BOOKS: `${BASE_API_URL}/books`,
